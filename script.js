@@ -1,26 +1,37 @@
 function agregarTarea() {
-    let input = document.getElementById("tarea");
-    let texto = input.value;
+    let inputTarea = document.getElementById("tarea");
+    let inputCurso = document.getElementById("curso");
+    let inputFecha = document.getElementById("fecha");
 
-    if (texto === "") {
-        alert("Por favor, escribe una tarea.");
+    // Validar que al menos la tarea y el curso tengan contenido
+    if (inputTarea.value === "" || inputCurso.value === "") {
+        alert("Por favor, completa la tarea y el curso.");
         return;
     }
 
     let lista = document.getElementById("lista");
     let li = document.createElement("li");
 
-    // Crear el contenido de la tarea
+    // Estructura con los nuevos datos
     li.innerHTML = `
-        <span>${texto}</span>
+        <div class="info-contenedor">
+            <span class="titulo-tarea">${inputTarea.value}</span>
+            <div class="detalles">
+                <small>📚 ${inputCurso.value}</small>
+                <small>📅 ${inputFecha.value || 'Sin fecha'}</small>
+            </div>
+        </div>
         <button class="btn-eliminar" onclick="eliminarTarea(this)">Eliminar</button>
     `;
 
     lista.appendChild(li);
-    input.value = ""; // Limpiar el input
+
+    // Limpiar todos los campos
+    inputTarea.value = "";
+    inputCurso.value = "";
+    inputFecha.value = "";
 }
 
 function eliminarTarea(elemento) {
-    // El elemento es el botón, el parentElement es el <li>
     elemento.parentElement.remove();
 }
